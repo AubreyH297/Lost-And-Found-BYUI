@@ -1,8 +1,8 @@
 Here's the files for our website. Update them and commit to this repository as you complete tasks. # Lost-And-Found-BYUI
 
-## Branch `foundit-redesign`: a preview of a full redesign
+## FoundIt: the redesigned site
 
-This branch is a design preview for the team. It is not merged into `main`.
+Live site: https://holm-i-252.github.io/Lost-And-Found-BYUI/
 
 ### What's new
 
@@ -30,7 +30,7 @@ This branch is a design preview for the team. It is not merged into `main`.
 | `assets/js/map.js` | Campus map (Leaflet + OpenStreetMap) |
 | `assets/js/home.js`, `browse.js`, `report.js`, `faq.js` | Page scripts |
 
-### Before this could go live
+### Settings to know
 
 - Found-item form is linked (`foundForm` in `config.js`). To show found items on Browse, publish its sheet's **Public** tab as CSV and put that link in `foundItemsCsv`.
 - Publish only sheet tabs **without names, emails or phone numbers**: every published column can show up on the site.
