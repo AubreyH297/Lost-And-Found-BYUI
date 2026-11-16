@@ -193,6 +193,93 @@ main a.table-card-link {
   color: #64748b;
 }
 
+/* ---------- What / Where / When filters (items.html) ---------- */
+
+.item-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.filter-field.filter-when {
+  flex: 0 1 auto;
+}
+
+.filter-label {
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.item-filters input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: white;
+  color: #0B3954;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.item-filters input:focus {
+  outline: 3px solid #BFD7EA;
+  border-color: #0B3954;
+}
+
+.filter-dates {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.filter-dates input {
+  width: auto;
+}
+
+button.filter-clear {
+  padding: 10px 16px;
+  background: white;
+  color: #0B3954;
+  border: 1px solid #0B3954;
+  font-size: 14px;
+}
+
+button.filter-clear:hover {
+  background: #e5efe8;
+}
+
+.filter-status {
+  padding: 12px 20px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.items-table tr.no-results-row td {
+  padding: 28px 20px;
+  text-align: center;
+  white-space: normal;
+  color: #64748b;
+  background: white;
+}
+
 /* ---------- Item details modal (items.html) ---------- */
 
 body.modal-open {
@@ -328,6 +415,17 @@ button.item-modal-close:hover {
   .items-table th,
   .items-table td {
     padding: 10px 12px;
+  }
+
+  .filter-field,
+  .filter-field.filter-when,
+  button.filter-clear {
+    flex-basis: 100%;
+  }
+
+  .filter-dates input {
+    flex: 1;
+    min-width: 0;
   }
 
   .item-modal-details {
