@@ -29,6 +29,27 @@
         <h3>Lost Items</h3>
         <a href="report.html" class="table-card-link">+ Report an Item</a>
       </div>
+      <form id="itemFilters" class="item-filters" role="search" aria-label="Filter lost items">
+        <div class="filter-field">
+          <label class="filter-label" for="filterWhat">What</label>
+          <input type="search" id="filterWhat" placeholder="Phone, keys, blue hat..." autocomplete="off">
+        </div>
+        <div class="filter-field">
+          <label class="filter-label" for="filterWhere">Where</label>
+          <input type="search" id="filterWhere" list="locationOptions" placeholder="STC, I-Center..." autocomplete="off">
+          <datalist id="locationOptions"></datalist>
+        </div>
+        <div class="filter-field filter-when" role="group" aria-labelledby="filterWhenLabel">
+          <span class="filter-label" id="filterWhenLabel">When</span>
+          <div class="filter-dates">
+            <input type="date" id="filterFrom" aria-label="Lost on or after">
+            <span aria-hidden="true">to</span>
+            <input type="date" id="filterTo" aria-label="Lost on or before">
+          </div>
+        </div>
+        <button type="reset" class="filter-clear">Clear filters</button>
+      </form>
+      <p id="filterStatus" class="filter-status" aria-live="polite">Loading items...</p>
       <div class="table-scroll">
         <table id="lostItems" class="items-table">
           <tr>
