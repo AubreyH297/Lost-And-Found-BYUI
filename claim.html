@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to claim an item · FoundIt</title>
+  <meta name="description" content="Found your item on the board? Here’s how to prove it’s yours and get it back safely.">
+  <meta name="theme-color" content="#04121C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/foundit.css">
+  <script>
+    // Pick the saved (or system) colour theme before the page paints.
+    (function () {
+      var root = document.documentElement, saved = null;
+      root.classList.add('js');
+      try { saved = localStorage.getItem('foundit-theme'); } catch (e) {}
+      root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/buildings.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="FoundIt home">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+          <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__name">Found<span>It</span></span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="items.html">Browse</a>
+        <a href="report.html">Report</a>
+        <a href="claim.html" aria-current="page">How to claim</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme"></button>
+        <a class="btn btn--sm btn--header" href="items.html">Browse items</a>
+        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"></button>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero on-dark">
+    <div class="container">
+      <span class="eyebrow" data-reveal>🤝 From “that’s mine!” to back in your hands</span>
+      <h1 data-reveal style="--i:1">How to claim an item</h1>
+      <p data-reveal style="--i:2">Five simple steps keep it quick for you and safe for the finder. The line fills in as you scroll.</p>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="section">
+      <div class="narrow">
+        <ol class="timeline" data-timeline>
+          <li class="t-step" data-reveal>
+            <span class="t-step__dot">1</span>
+            <h3>🔎 Search the board</h3>
+            <p>Open <a href="items.html">Browse</a> and filter by what you lost, where, and when. Try the campus map if you remember the building but not the exact spot.</p>
+            <a class="btn btn--primary btn--sm" href="items.html?type=found">See found items <i data-icon="arrow"></i></a>
+          </li>
+          <li class="t-step" data-reveal>
+            <span class="t-step__dot">2</span>
+            <h3>🧐 Check the details</h3>
+            <p>Open the report and compare the color, brand, stickers and place. Check where the item is now: still with the finder, or left at a front desk.</p>
+          </li>
+          <li class="t-step" data-reveal>
+            <span class="t-step__dot">3</span>
+            <h3>🔐 Prove it’s yours</h3>
+            <p>Be ready to describe something that isn’t in the report: your phone’s lock screen, what’s inside the wallet, a scratch or a name inside the cover. Finders are asked to keep one detail back for exactly this.</p>
+          </li>
+          <li class="t-step" data-reveal>
+            <span class="t-step__dot">4</span>
+            <h3>🏫 Meet somewhere public</h3>
+            <p>Pick it up in a busy campus spot during the day, like a building lobby, or at the front desk where it was turned in. Bring a friend if you like.</p>
+          </li>
+          <li class="t-step" data-reveal>
+            <span class="t-step__dot">5</span>
+            <h3>🎉 Close the report</h3>
+            <p>Got it back? Let the FoundIt team know so we can mark the report as returned. A returned item tells everyone the board works.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="safety-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Stay safe</span>
+            <h2 id="safety-title">A few rules we always follow</h2>
+          </div>
+          <p>Most people are just trying to help. These habits keep it that way.</p>
+        </div>
+        <div class="safety-grid">
+          <article class="safety-card" data-reveal>
+            <div class="safety-card__icon"><i data-icon="shield"></i></div>
+            <h3>Never pay to get it back</h3>
+            <p>FoundIt is free. If someone asks for money or a “reward” first, stop and talk to the team.</p>
+          </article>
+          <article class="safety-card" data-reveal style="--i:1">
+            <div class="safety-card__icon"><i data-icon="message"></i></div>
+            <h3>Keep private info private</h3>
+            <p>Don’t share passwords, card numbers or your home address. A name and a campus meeting spot are enough.</p>
+          </article>
+          <article class="safety-card" data-reveal style="--i:2">
+            <div class="safety-card__icon"><i data-icon="pin"></i></div>
+            <h3>Public places only</h3>
+            <p>Meet on campus, in daylight, where other people are around. Never go to someone’s apartment for a pickup.</p>
+          </article>
+          <article class="safety-card" data-reveal style="--i:3">
+            <div class="safety-card__icon"><i data-icon="check"></i></div>
+            <h3>Check before you hand over</h3>
+            <p>Finders: ask for the hidden detail first. If the answer doesn’t match, keep the item and tell the team.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta-band on-dark" data-reveal>
+          <span class="cta-band__art" aria-hidden="true">🔑</span>
+          <div>
+            <span class="kicker">Not on the board yet?</span>
+            <h2>Report it, and let the finders come to you.</h2>
+            <p>Most items turn up in the first few days. A report with a building and a photo is the easiest to match.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--light btn--lg" href="report.html?type=lost">Report a lost item</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="FoundIt home">
+            <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+              <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+              <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+            </svg>
+            <span class="brand__name">Found<span>It</span></span>
+          </a>
+          <p>Every item has a way home. FoundIt helps BYU-Idaho students report what they lost, post what they found, and get things back to their owners.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="items.html">Browse items</a></li>
+            <li><a href="report.html">Report an item</a></li>
+            <li><a href="claim.html">How to claim</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>About</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">Our team</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p>Student class project, not an official BYU-Idaho service.</p>
+        <p>© 2026 FoundIt team</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

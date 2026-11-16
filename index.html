@@ -3,217 +3,242 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FoundIt | Lost & Found</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>FoundIt · Lost &amp; found for BYU-Idaho students</title>
+  <meta name="description" content="Lost something on campus? Search the FoundIt board, report a lost or found item, and help it get home.">
+  <meta name="theme-color" content="#04121C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="assets/css/foundit.css">
+  <script>
+    // Pick the saved (or system) colour theme before the page paints.
+    (function () {
+      var root = document.documentElement, saved = null;
+      root.classList.add('js');
+      try { saved = localStorage.getItem('foundit-theme'); } catch (e) {}
+      root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/buildings.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/map.js" defer></script>
+  <script src="assets/js/home.js" defer></script>
 </head>
-
 <body>
-  <header>
-    <a id="logo link" href="index.html">
-            <img class="logo" src="FoundIt_logo.png" alt="FoundIt Logo">
-    </a>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#items">Browse Items</a>
-      <a href="#about">About</a>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="FoundIt home">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+          <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__name">Found<span>It</span></span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="items.html">Browse</a>
+        <a href="report.html">Report</a>
+        <a href="claim.html">How to claim</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme"></button>
+        <a class="btn btn--sm btn--header" href="report.html">Report an item</a>
+        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"></button>
+      </div>
+    </div>
   </header>
 
-  <section class="hero">
-    <h1>Lost something?</h1>
-    <h2>Let's help you find it.</h2>
-    <p>
-      Search for missing belongings or report something
-      you've found. Together, we can get items back home.
-    </p>
+  <section class="hero on-dark" aria-labelledby="hero-title">
+    <div class="floaters" aria-hidden="true">
+      <div class="floater" style="--x:7%;--y:22%;--s:80px;--d:7s" data-depth="34"><span>🔑</span></div>
+      <div class="floater floater--found" style="--x:83%;--y:18%;--s:88px;--d:9s;--delay:-2s" data-depth="48"><span>🎒</span></div>
+      <div class="floater" style="--x:13%;--y:66%;--s:72px;--d:8s;--delay:-4s" data-depth="26"><span>📱</span></div>
+      <div class="floater floater--found" style="--x:80%;--y:64%;--s:76px;--d:10s;--delay:-1s" data-depth="38"><span>👛</span></div>
+      <div class="floater" style="--x:3%;--y:45%;--s:58px;--d:6s;--delay:-3s" data-depth="18"><span>🎧</span></div>
+      <div class="floater" style="--x:91%;--y:42%;--s:60px;--d:7.5s;--delay:-5s" data-depth="22"><span>💧</span></div>
+      <div class="floater" style="--x:23%;--y:11%;--s:52px;--d:8.5s;--delay:-6s" data-depth="14"><span>🧢</span></div>
+      <div class="floater floater--found" style="--x:70%;--y:84%;--s:56px;--d:9.5s;--delay:-2.5s" data-depth="24"><span>📚</span></div>
+    </div>
 
-    <form class="search-bar" id="searchForm">
-      <input
-        type="search"
-        id="searchInput"
-        placeholder="Try keys, wallet, backpack..."
-        aria-label="Search lost and found items"
-      >
-      <button class="search-button" type="submit">
-        Search Items
-      </button>
-    </form>
+    <div class="container hero__inner">
+      <span class="eyebrow" data-reveal><span class="live-dot"></span><span id="liveLine">Live board for BYU-Idaho students</span></span>
+      <h1 id="hero-title" data-reveal style="--i:1">Lost it? <span class="shine">Let’s find it.</span></h1>
+      <p class="hero__lead" data-reveal style="--i:2">FoundIt connects people who lost something on campus with the people who found it. Search the board, report an item, and help it get home.</p>
 
-    <div class="actions">
-  <a href="report.html" style="text-decoration: none;">
-    <button class="lost-button" type="button">
-      + Report Lost Item
-    </button>
-  </a>
-  <button class="found-button" type="button" onclick="reportItem('found')">
-    + Report Found Item
-  </button>
-</div>
+      <form class="hero-search" id="heroSearch" action="items.html" method="get" role="search" data-reveal style="--i:3">
+        <i data-icon="search"></i>
+        <label class="sr-only" for="heroQuery">What did you lose?</label>
+        <input id="heroQuery" name="q" type="search" placeholder="What did you lose?" autocomplete="off">
+        <button class="btn btn--glow btn--lg" type="submit">Search the board</button>
+      </form>
+      <div class="radar" aria-hidden="true">
+        <div class="radar__sweep"></div>
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      <nav class="quick-chips" aria-label="Popular searches" data-reveal style="--i:4">
+        <a href="items.html?cat=tech">📱 Phones &amp; tech</a>
+        <a href="items.html?cat=keys">🔑 Keys</a>
+        <a href="items.html?cat=wallets">👛 Wallets &amp; IDs</a>
+        <a href="items.html?cat=bags">🎒 Bags</a>
+        <a href="items.html?cat=bottles">💧 Bottles</a>
+        <a href="items.html?cat=clothing">🧥 Clothing</a>
+      </nav>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
   </section>
 
-  <main>
-    <section id="items">
-      <div class="section-heading">
-        <h2>Recently Reported Items</h2>
-        <p>See if someone has reported your missing item.</p>
+  <main id="main">
+    <div class="container pull-up">
+      <div class="stats" data-reveal>
+        <div class="stat">
+          <div class="stat__icon" aria-hidden="true">📋</div>
+          <div><div class="stat__num" data-stat="reports">0</div><div class="stat__label">Reports on the board</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat__icon" aria-hidden="true">📍</div>
+          <div><div class="stat__num" data-stat="places">0</div><div class="stat__label">Campus buildings with reports</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat__icon" aria-hidden="true">⏱️</div>
+          <div><div class="stat__num" data-stat="latest">–</div><div class="stat__label">Newest report</div></div>
+        </div>
       </div>
+    </div>
 
-      <div class="filters">
-        <button class="filter-button active"
-          data-filter="all">All Items</button>
-        <button class="filter-button"
-          data-filter="lost">Lost</button>
-        <button class="filter-button"
-          data-filter="found">Found</button>
-      </div>
-
-      <div class="items-grid" id="itemsGrid">
-
-        <article class="item-card"
-          data-status="lost"
-          data-search="car keys black library">
-          <div class="item-image">
-            <img src="Keys.JPG" alt="Blue car keys">
+    <section class="section" aria-labelledby="recent-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Fresh on the board</span>
+            <h2 id="recent-title">Recently reported</h2>
           </div>
-          <div class="item-info">
-            <span class="status lost">Lost</span>
-            <h3>Car Keys</h3>
-            <p>📍 Library · Oct 18</p>
-          </div>
-        </article>
-
-        <article class="item-card"
-          data-status="found"
-          data-search="blue backpack student center">
-          <div class="item-image">
-            <img src="Backpack.png" alt="Blue backpack">
-          </div>
-          <div class="item-info">
-            <span class="status found">Found</span>
-            <h3>Blue Backpack</h3>
-            <p>📍 Student Center · Oct 18</p>
-          </div>
-        </article>
-
-        <article class="item-card"
-          data-status="lost"
-          data-search="house key wooden table">
-          <div class="item-image">
-            <img src="House_Key.png" alt="Silver house key">
-          </div>
-          <div class="item-info">
-            <span class="status lost">Lost</span>
-            <h3>House Key</h3>
-            <p>📍 Parking Lot · Oct 17</p>
-          </div>
-        </article>
-
-        <article class="item-card"
-          data-status="found"
-          data-search="wallet brown cafeteria">
-          <div class="item-image">
-            <img src="Wallet.png" alt="Wallet">
-          </div>
-          <div class="item-info">
-            <span class="status found">Found</span>
-            <h3>Wallet</h3>
-            <p>📍 Cafeteria · Oct 16</p>
-          </div>
-        </article>
-
+          <a class="text-link" href="items.html">See every item <i data-icon="arrow"></i></a>
+        </div>
+        <div class="item-grid item-grid--home" id="recentGrid">
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+        </div>
+        <p class="notice" id="sampleNotice" hidden><i data-icon="box"></i><span>There are only a few real reports so far, so a few <strong>sample</strong> items show how the board works.</span></p>
       </div>
     </section>
 
-    <section class="callout" id="about">
-      <h2>Every item has a way home. ❤️</h2>
-      <p>
-        Found something that doesn't belong to you?
-        Post it here and help reunite someone with
-        an item they thought was gone forever.
-      </p>
+    <section class="section section--tight" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">How it works</span>
+            <h2 id="how-title">Three steps to get it back</h2>
+          </div>
+          <p>No account and no app to install. Just a short form and a board everyone on campus can search.</p>
+        </div>
+        <div class="steps">
+          <article class="step" data-reveal style="--i:0">
+            <span class="step__num" aria-hidden="true">01</span>
+            <div class="step__icon" aria-hidden="true">📝</div>
+            <h3>Report it</h3>
+            <p>Lost something or found something? Fill out a short form: what it is, where, and when.</p>
+          </article>
+          <article class="step" data-reveal style="--i:1">
+            <span class="step__num" aria-hidden="true">02</span>
+            <div class="step__icon" aria-hidden="true">🔎</div>
+            <h3>Search the board</h3>
+            <p>Every report shows up on the board. Filter by what, where and when, or look at the campus map.</p>
+          </article>
+          <article class="step" data-reveal style="--i:2">
+            <span class="step__num" aria-hidden="true">03</span>
+            <div class="step__icon" aria-hidden="true">🤝</div>
+            <h3>Get it home</h3>
+            <p>Prove it’s yours with a detail only the owner would know, then meet somewhere safe on campus.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="map-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">Campus map</span>
+            <h2 id="map-title">Where things go missing</h2>
+          </div>
+          <p>Each pin is a building with reports. Tap one to see what was lost or found there.</p>
+        </div>
+        <div class="map-card" data-reveal>
+          <div class="map" id="homeMap" role="region" aria-label="Campus map of reported items"></div>
+          <div class="map-legend" aria-hidden="true">
+            <span><i style="background:var(--amber)"></i>Lost</span>
+            <span><i style="background:var(--mint)"></i>Found</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta-band on-dark" data-reveal>
+          <span class="cta-band__art" aria-hidden="true">🎒</span>
+          <div>
+            <span class="kicker">Found something?</span>
+            <h2>You could make someone’s whole day.</h2>
+            <p>Post it in under a minute. Tell us what it is and where it is now, and we’ll help the owner find it.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--light btn--lg" href="report.html?type=found">Report a found item</a>
+            <a class="btn btn--on-dark btn--lg" href="report.html?type=lost">I lost something</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>FoundIt — A community-powered lost and found</p>
-    <p>&copy; 2026 FoundIt. All rights reserved.</p>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="FoundIt home">
+            <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+              <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+              <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+            </svg>
+            <span class="brand__name">Found<span>It</span></span>
+          </a>
+          <p>Every item has a way home. FoundIt helps BYU-Idaho students report what they lost, post what they found, and get things back to their owners.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="items.html">Browse items</a></li>
+            <li><a href="report.html">Report an item</a></li>
+            <li><a href="claim.html">How to claim</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>About</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">Our team</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p>Student class project, not an official BYU-Idaho service.</p>
+        <p>© 2026 FoundIt team</p>
+      </div>
+    </div>
   </footer>
-
-  <script>
-    const searchForm = document.getElementById("searchForm");
-    const searchInput = document.getElementById("searchInput");
-    const cards = [...document.querySelectorAll(".item-card")];
-    const filterButtons = document.querySelectorAll(".filter-button");
-
-    let activeFilter = "all";
-
-    function updateItems() {
-      const query = searchInput.value.trim().toLowerCase();
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-        const matchesSearch =
-          card.dataset.search.includes(query) ||
-          card.innerText.toLowerCase().includes(query);
-
-        const matchesFilter =
-          activeFilter === "all" ||
-          card.dataset.status === activeFilter;
-
-        const visible = matchesSearch && matchesFilter;
-        card.hidden = !visible;
-
-        if (visible) visibleCount++;
-      });
-
-      let emptyMessage = document.getElementById("emptyMessage");
-
-      if (!visibleCount) {
-        if (!emptyMessage) {
-          emptyMessage = document.createElement("p");
-          emptyMessage.id = "emptyMessage";
-          emptyMessage.className = "empty-message";
-          emptyMessage.textContent =
-            "No matching items found. Try another search.";
-
-          document.getElementById("itemsGrid")
-            .appendChild(emptyMessage);
-        }
-      } else if (emptyMessage) {
-        emptyMessage.remove();
-      }
-    }
-
-    searchForm.addEventListener("submit", event => {
-      event.preventDefault();
-      updateItems();
-
-      document.getElementById("items")
-        .scrollIntoView({ behavior: "smooth" });
-    });
-
-    searchInput.addEventListener("input", updateItems);
-
-    filterButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        activeFilter = button.dataset.filter;
-
-        filterButtons.forEach(item =>
-          item.classList.toggle("active", item === button)
-        );
-
-        updateItems();
-      });
-    });
-
-    function reportItem(type) {
-      alert(
-        "The " + type + " item reporting form will go here. " +
-        "This is a placeholder for the prototype."
-      );
-    }
-  </script>
 </body>
 </html>
-
-    
