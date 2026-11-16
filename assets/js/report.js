@@ -4,6 +4,8 @@
     const FoundIt = window.FoundIt;
     const config = window.FOUNDIT_CONFIG || {};
     const FORMS = { lost: config.lostForm, found: config.foundForm };
+    // Embedded Google Forms can't grow to fit, so each frame gets roughly its form's height.
+    const HEIGHTS = { lost: 1150, found: 2300 };
 
     function embedUrl(link) {
         const url = new URL(link);
@@ -38,6 +40,7 @@
         const iframe = document.createElement('iframe');
         iframe.title = type === 'lost' ? 'Lost item report form' : 'Found item report form';
         iframe.src = embedUrl(FORMS[type]);
+        iframe.style.height = `${HEIGHTS[type]}px`;
         iframe.addEventListener('load', () => frame.classList.add('is-loaded'));
         frame.appendChild(iframe);
     }

@@ -32,7 +32,7 @@ This branch is a design preview for the team. It is not merged into `main`.
 
 ### Before this could go live
 
-- Found-item form: put its link in `foundForm` and its published sheet in `foundItemsCsv` (`config.js`).
+- Found-item form is linked (`foundForm` in `config.js`). To show found items on Browse, publish its sheet's **Public** tab as CSV and put that link in `foundItemsCsv`.
 - Publish only sheet tabs **without names, emails or phone numbers**: every published column can show up on the site.
 - `showSamplesWhenFewerThan` in `config.js` controls the sample items (0 = never show them).
 
