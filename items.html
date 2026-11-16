@@ -1,90 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoundIt | Browse Lost Items</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="report.css">
-    <script src="browseItems.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse the board · FoundIt</title>
+  <meta name="description" content="Search every lost and found report on campus. Filter by what it is, where it was and when.">
+  <meta name="theme-color" content="#04121C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="assets/css/foundit.css">
+  <script>
+    // Pick the saved (or system) colour theme before the page paints.
+    (function () {
+      var root = document.documentElement, saved = null;
+      root.classList.add('js');
+      try { saved = localStorage.getItem('foundit-theme'); } catch (e) {}
+      root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/buildings.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/map.js" defer></script>
+  <script src="assets/js/browse.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="logo">FoundIt</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="items.html">Browse Items</a>
-      <a href="about.html">About</a>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="FoundIt home">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+          <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__name">Found<span>It</span></span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="items.html" aria-current="page">Browse</a>
+        <a href="report.html">Report</a>
+        <a href="claim.html">How to claim</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme"></button>
+        <a class="btn btn--sm btn--header" href="report.html">Report an item</a>
+        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"></button>
+      </div>
+    </div>
   </header>
 
-  <section class="page-banner">
-    <h1>Lost Item Reports</h1>
-    <p>Every item reported through FoundIt shows up here. Recognize something? Reach out and help it get home.</p>
+  <section class="page-hero on-dark">
+    <div class="container">
+      <span class="eyebrow" data-reveal><span class="live-dot"></span>Updated live from our report forms</span>
+      <h1 data-reveal style="--i:1">Browse the board</h1>
+      <p data-reveal style="--i:2">Search everything people have reported on campus. Narrow it down by what it is, where it was, and when.</p>
+    </div>
   </section>
 
-  <main>
-    <div id="lostItemsContainer" class="table-card">
-      <div class="table-card-header">
-        <h3>Lost Items</h3>
-        <a href="report.html" class="table-card-link">+ Report an Item</a>
-      </div>
-      <form id="itemFilters" class="item-filters" role="search" aria-label="Filter lost items">
-        <div class="filter-field">
-          <label class="filter-label" for="filterWhat">What</label>
-          <input type="search" id="filterWhat" placeholder="Phone, keys, blue hat..." autocomplete="off">
+  <main id="main">
+    <div class="container pull-up">
+      <form class="filter-panel" id="filters" role="search" aria-label="Filter reports" data-reveal>
+        <div class="filter-row">
+          <div class="field">
+            <label class="field-label" for="fWhat">What</label>
+            <div class="input-wrap">
+              <i data-icon="search"></i>
+              <input class="input" id="fWhat" type="search" placeholder="Keys, wallet, blue hat…" autocomplete="off">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="fWhere">Where</label>
+            <div class="input-wrap">
+              <i data-icon="pin"></i>
+              <select class="input" id="fWhere">
+                <option value="">Anywhere on campus</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="fWhen">When</label>
+            <div class="input-wrap">
+              <i data-icon="calendar"></i>
+              <select class="input" id="fWhen">
+                <option value="">Any time</option>
+                <option value="0">Today</option>
+                <option value="7">Past 7 days</option>
+                <option value="30">Past 30 days</option>
+                <option value="custom">Pick dates…</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn--ghost" type="reset"><i data-icon="refresh"></i>Clear</button>
         </div>
-        <div class="filter-field">
-          <label class="filter-label" for="filterWhere">Where</label>
-          <input type="search" id="filterWhere" list="locationOptions" placeholder="STC, I-Center..." autocomplete="off">
-          <datalist id="locationOptions"></datalist>
-        </div>
-        <div class="filter-field filter-when" role="group" aria-labelledby="filterWhenLabel">
-          <span class="filter-label" id="filterWhenLabel">When</span>
-          <div class="filter-dates">
-            <input type="date" id="filterFrom" aria-label="Lost on or after">
-            <span aria-hidden="true">to</span>
-            <input type="date" id="filterTo" aria-label="Lost on or before">
+
+        <div class="date-range" id="dateRange" hidden>
+          <div class="field">
+            <label class="field-label" for="fFrom">From</label>
+            <input class="input" id="fFrom" type="date">
+          </div>
+          <div class="field">
+            <label class="field-label" for="fTo">To</label>
+            <input class="input" id="fTo" type="date">
           </div>
         </div>
-        <button type="reset" class="filter-clear">Clear filters</button>
+
+        <div class="filter-bottom">
+          <div class="chips" id="categoryChips" role="group" aria-label="Category"></div>
+          <div class="segmented" role="group" aria-label="Show lost or found">
+            <button type="button" data-type="" aria-pressed="true">All</button>
+            <button type="button" data-type="lost" aria-pressed="false">Lost</button>
+            <button type="button" data-type="found" aria-pressed="false">Found</button>
+          </div>
+        </div>
       </form>
-      <p id="filterStatus" class="filter-status" aria-live="polite">Loading items...</p>
-      <div class="table-scroll">
-        <table id="lostItems" class="items-table">
-          <tr>
-            <th>Date</th>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Location</th>
-          </tr>
-          <!-- Auto populated lost items will appear here. -->
-        </table>
+
+      <div class="results-bar">
+        <p class="results-count" id="resultsCount" aria-live="polite">Loading reports…</p>
+        <div class="toolbar-group">
+          <label class="switch"><input type="checkbox" id="fSamples"> Sample items</label>
+          <select class="input input--compact" id="fSort" aria-label="Sort">
+            <option value="new">Newest first</option>
+            <option value="old">Oldest first</option>
+          </select>
+          <div class="segmented" role="group" aria-label="View">
+            <button type="button" data-view="grid" aria-pressed="true"><i data-icon="grid"></i>Cards</button>
+            <button type="button" data-view="map" aria-pressed="false"><i data-icon="map"></i>Map</button>
+          </div>
+        </div>
       </div>
-      <p class="table-card-hint">Click any item to see its full details.</p>
+
+      <div id="gridView">
+        <div class="item-grid" id="itemGrid">
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+        </div>
+      </div>
+
+      <div id="mapView" hidden>
+        <div class="map-card">
+          <div class="map browse-map" id="browseMap" role="region" aria-label="Campus map of the reports that match your filters"></div>
+          <div class="map-legend" aria-hidden="true">
+            <span><i style="background:var(--amber)"></i>Lost</span>
+            <span><i style="background:var(--mint)"></i>Found</span>
+          </div>
+        </div>
+        <p class="notice" id="mapNote" hidden><i data-icon="pin"></i><span></span></p>
+      </div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-state__art" aria-hidden="true">🔍</div>
+        <h3>Nothing matches… yet</h3>
+        <p>Try fewer words, a wider date range, or another building. Still missing? Report it so a finder can match it.</p>
+        <div class="btn-row">
+          <button class="btn btn--ghost" type="button" data-clear>Clear filters</button>
+          <a class="btn btn--primary" href="report.html?type=lost">Report a lost item</a>
+        </div>
+      </div>
+
+      <p class="notice" id="samplesNotice" hidden><i data-icon="box"></i><span>Cards marked <strong>Sample</strong> show how the board looks when it’s busy. Turn off “Sample items” to see only real reports.</span></p>
     </div>
   </main>
 
-  <dialog id="itemModal" class="item-modal" aria-labelledby="itemModalTitle">
-    <div class="item-modal-content">
-      <div class="item-modal-header">
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
         <div>
-          <span class="status lost">Lost</span>
-          <h2 id="itemModalTitle">Item details</h2>
+          <a class="brand" href="index.html" aria-label="FoundIt home">
+            <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+              <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+              <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+            </svg>
+            <span class="brand__name">Found<span>It</span></span>
+          </a>
+          <p>Every item has a way home. FoundIt helps BYU-Idaho students report what they lost, post what they found, and get things back to their owners.</p>
         </div>
-        <button type="button" class="item-modal-x" data-close-modal aria-label="Close details">&times;</button>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="items.html">Browse items</a></li>
+            <li><a href="report.html">Report an item</a></li>
+            <li><a href="claim.html">How to claim</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>About</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">Our team</a></li>
+          </ul>
+        </div>
       </div>
-      <dl id="itemModalDetails" class="item-modal-details"></dl>
-      <div class="item-modal-footer">
-        <a href="report.html" class="table-card-link">Report a Found Item</a>
-        <button type="button" class="item-modal-close" data-close-modal>Close</button>
+      <div class="footer-note">
+        <p>Student class project, not an official BYU-Idaho service.</p>
+        <p>© 2026 FoundIt team</p>
       </div>
     </div>
-  </dialog>
-
-  <footer>
-    <p>FoundIt — A community-powered lost and found</p>
-    <p>&copy; 2026 FoundIt. All rights reserved.</p>
   </footer>
 </body>
 </html>

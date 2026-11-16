@@ -1,58 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoundIt | About Us</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About us · FoundIt</title>
+  <meta name="description" content="Meet the five BYU-Idaho students behind FoundIt and see how we built it.">
+  <meta name="theme-color" content="#04121C">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/css/foundit.css">
+  <script>
+    // Pick the saved (or system) colour theme before the page paints.
+    (function () {
+      var root = document.documentElement, saved = null;
+      root.classList.add('js');
+      try { saved = localStorage.getItem('foundit-theme'); } catch (e) {}
+      root.dataset.theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/buildings.js" defer></script>
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
-    <header>
-    <div class="logo">🔎 FoundIt</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="index.html">Browse Items</a>
-      <a href="#">About</a>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="FoundIt home">
+        <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+          <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__name">Found<span>It</span></span>
+      </a>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="items.html">Browse</a>
+        <a href="report.html">Report</a>
+        <a href="claim.html">How to claim</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html" aria-current="page">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme"></button>
+        <a class="btn btn--sm btn--header" href="report.html">Report an item</a>
+        <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"></button>
+      </div>
+    </div>
   </header>
-    <main>
-        <h1>Our Mission</h1>
-        <p>To simplify the process of helping people find their lost items. </p>
-        <h1>Our Team</h1>
-        <div id="Ian">
-            <img src="images/ian-pic.jpeg" alt="Ian">
-            <h2>Ian - Team Lead</h2>
-            <p>Email: ian@fakeemail.com</p>
-            <p>Phone: (555) 555-0159</p>
+
+  <section class="page-hero on-dark">
+    <div class="container">
+      <span class="eyebrow" data-reveal>👋 Built by students, for students</span>
+      <h1 data-reveal style="--i:1">About FoundIt</h1>
+      <p data-reveal style="--i:2">Five BYU-Idaho students, one simple idea: things lost on campus should find their way home.</p>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="section">
+      <div class="container mission">
+        <blockquote data-reveal>Our mission: make it <span>simple</span> to help people find their lost items.</blockquote>
+        <div data-reveal style="--i:1">
+          <p>Things get lost on every campus: keys in the library, a water bottle in a classroom, a backpack in the food court. Usually someone finds them, but the finder and the owner never connect.</p>
+          <p style="margin-top:14px">FoundIt gives both sides one place to look. Reporting takes a minute, every report is searchable, and the campus map shows where things turn up.</p>
         </div>
-        <div id="Cort">
-            <img src="images/cort-pic.jpeg" alt="Cort">
-            <h2>Cort - Technical Lead</h2>
-            <p>Email: cort@fakeemail.com</p>
-            <p>Phone: (555) 555-0175</p>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="team-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">The team</span>
+            <h2 id="team-title">Meet the people behind it</h2>
+          </div>
+          <p>Every role mattered: planning, building, writing, testing and keeping the sprints on track.</p>
         </div>
-        <div id="Audrey">
-            <img src="images/audrey-pic.jpeg" alt="Audrey">
-            <h2>Audrey - Scrum Master</h2>
-            <p>Email: audrey@fakeemail.com</p>
-            <p>Phone: (555) 555-0127</p>
+        <div class="team-grid">
+          <article class="member" data-reveal style="--i:0">
+            <img src="images/ian-pic.jpeg" alt="Ian" width="104" height="104" loading="lazy">
+            <h3>Ian</h3>
+            <span class="member__role">Team Lead</span>
+          </article>
+          <article class="member" data-reveal style="--i:1">
+            <img src="images/cort-pic.jpeg" alt="Cort" width="104" height="104" loading="lazy">
+            <h3>Cort</h3>
+            <span class="member__role">Technical Lead</span>
+          </article>
+          <article class="member" data-reveal style="--i:2">
+            <img src="images/audrey-pic.jpeg" alt="Audrey" width="104" height="104" loading="lazy">
+            <h3>Audrey</h3>
+            <span class="member__role">Scrum Master</span>
+          </article>
+          <article class="member" data-reveal style="--i:3">
+            <img src="images/umar-pic.jpeg" alt="Umar" width="104" height="104" loading="lazy">
+            <h3>Umar</h3>
+            <span class="member__role">Content Specialist</span>
+          </article>
+          <article class="member" data-reveal style="--i:4">
+            <img src="images/david-pic.jpeg" alt="David" width="104" height="104" loading="lazy">
+            <h3>David</h3>
+            <span class="member__role">QA / UX Specialist</span>
+          </article>
         </div>
-        <div id="Umar">
-            <img src="images/umar-pic.jpeg" alt="Umar">
-            <h2>Umar - Content Specialist</h2>
-            <p>Email: umar@fakeemail.com</p>
-            <p>Phone: (555) 555-0162</p>
+      </div>
+    </section>
+
+    <section class="section section--tight" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="kicker">How we built it</span>
+            <h2 id="process-title">Agile, one sprint at a time</h2>
+          </div>
+          <p>We planned in Scrum sprints, tracked every task on a shared board, and shipped small improvements often.</p>
         </div>
-        <div id="David">
-            <img src="images/david-pic.jpeg" alt="David">
-            <h2>David - QA/UX Specialist</h2>
-            <p>Email: david@fakeemail.com</p>
-            <p>Phone: (555) 555-0141</p>
+        <div class="process">
+          <article class="process__item" data-reveal style="--i:0">
+            <span class="big" aria-hidden="true">🗂️</span>
+            <h3>Sprint planning</h3>
+            <p>User stories and tasks lived on our Lucid team board, so everyone knew what was next.</p>
+          </article>
+          <article class="process__item" data-reveal style="--i:1">
+            <span class="big" aria-hidden="true">📝</span>
+            <h3>Google Forms &amp; Sheets</h3>
+            <p>Reports come in through Google Forms and go straight into a sheet that powers the board.</p>
+          </article>
+          <article class="process__item" data-reveal style="--i:2">
+            <span class="big" aria-hidden="true">🌐</span>
+            <h3>GitHub Pages</h3>
+            <p>The site is plain HTML, CSS and JavaScript, reviewed through pull requests and published on GitHub Pages.</p>
+          </article>
+          <article class="process__item" data-reveal style="--i:3">
+            <span class="big" aria-hidden="true">🗺️</span>
+            <h3>Campus map</h3>
+            <p>Building locations come from OpenStreetMap, so each report can land on the right spot.</p>
+          </article>
         </div>
-    </main>
-    <footer>
-        <p>FoundIt — A community-powered lost and found</p>
-        <p>&copy; 2026 FoundIt. All rights reserved.</p>
-    </footer>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta-band on-dark" data-reveal>
+          <span class="cta-band__art" aria-hidden="true">💙</span>
+          <div>
+            <span class="kicker">Every item has a way home</span>
+            <h2>Help us prove it.</h2>
+            <p>Report what you lost, post what you found, and share FoundIt with your roommates.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn--light btn--lg" href="report.html">Report an item</a>
+            <a class="btn btn--on-dark btn--lg" href="items.html">Browse the board</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="FoundIt home">
+            <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+              <circle class="brand__lens" cx="17" cy="17" r="11.5" fill="none" stroke-width="4.5"/>
+              <path class="brand__check" d="m11.8 17.4 3.6 3.6 7-7.4" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m26 26 8.5 8.5" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
+            </svg>
+            <span class="brand__name">Found<span>It</span></span>
+          </a>
+          <p>Every item has a way home. FoundIt helps BYU-Idaho students report what they lost, post what they found, and get things back to their owners.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="items.html">Browse items</a></li>
+            <li><a href="report.html">Report an item</a></li>
+            <li><a href="claim.html">How to claim</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>About</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">Our team</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p>Student class project, not an official BYU-Idaho service.</p>
+        <p>© 2026 FoundIt team</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
