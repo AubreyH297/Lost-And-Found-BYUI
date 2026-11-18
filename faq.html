@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About us · FoundIt</title>
-  <meta name="description" content="Meet the five BYU-Idaho students behind FoundIt and see how we built it.">
+  <title>FAQ · FoundIt</title>
+  <meta name="description" content="Answers to common questions about reporting, finding and claiming items on FoundIt.">
   <meta name="theme-color" content="#04121C">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,7 @@
   <script src="assets/js/buildings.js" defer></script>
   <script src="assets/js/data.js" defer></script>
   <script src="assets/js/site.js" defer></script>
+  <script src="assets/js/faq.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,8 +44,8 @@
         <a href="items.html">Browse</a>
         <a href="report.html">Report</a>
         <a href="claim.html">How to claim</a>
-        <a href="faq.html">FAQ</a>
-        <a href="about.html" aria-current="page">About</a>
+        <a href="faq.html" aria-current="page">FAQ</a>
+        <a href="about.html">About</a>
       </nav>
       <div class="header-actions">
         <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch theme"></button>
@@ -56,112 +57,70 @@
 
   <section class="page-hero on-dark">
     <div class="container">
-      <span class="eyebrow" data-reveal>👋 Built by students, for students</span>
-      <h1 data-reveal style="--i:1">About FoundIt</h1>
-      <p data-reveal style="--i:2">Five BYU-Idaho students, one simple idea: things lost on campus should find their way home.</p>
+      <span class="eyebrow" data-reveal>💬 Quick answers</span>
+      <h1 data-reveal style="--i:1">Questions? We’ve got you.</h1>
+      <p data-reveal style="--i:2">Everything about reporting, finding and claiming items. Type below to jump straight to an answer.</p>
     </div>
   </section>
 
   <main id="main">
-    <section class="section">
-      <div class="container mission">
-        <blockquote data-reveal>Our mission: make it <span>simple</span> to help people find their lost items.</blockquote>
-        <div data-reveal style="--i:1">
-          <p>Things get lost on every campus: keys in the library, a water bottle in a classroom, a backpack in the food court. Usually someone finds them, but the finder and the owner never connect.</p>
-          <p style="margin-top:14px">FoundIt gives both sides one place to look. Reporting takes a minute, every report is searchable, and the campus map shows where things turn up.</p>
+    <div class="narrow pull-up">
+      <div class="faq-search" data-reveal>
+        <label class="sr-only" for="faqSearch">Search the questions</label>
+        <div class="input-wrap">
+          <i data-icon="search"></i>
+          <input class="input" id="faqSearch" type="search" placeholder="Search questions, like “photo” or “map”" autocomplete="off">
         </div>
       </div>
-    </section>
 
-    <section class="section section--tight" aria-labelledby="team-title">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="kicker">The team</span>
-            <h2 id="team-title">Meet the people behind it</h2>
-          </div>
-          <p>Every role mattered: planning, building, writing, testing and keeping the sprints on track.</p>
-        </div>
-        <div class="team-grid">
-          <article class="member" data-reveal style="--i:0">
-            <img src="images/ian-pic.jpeg" alt="Ian" width="104" height="104" loading="lazy">
-            <h3>Ian</h3>
-            <span class="member__role">Team Lead</span>
-          </article>
-          <article class="member" data-reveal style="--i:1">
-            <img src="images/cort-pic.jpeg" alt="Cort" width="104" height="104" loading="lazy">
-            <h3>Cort</h3>
-            <span class="member__role">Technical Lead</span>
-          </article>
-          <article class="member" data-reveal style="--i:2">
-            <img src="images/audrey-pic.jpeg" alt="Audrey" width="104" height="104" loading="lazy">
-            <h3>Audrey</h3>
-            <span class="member__role">Scrum Master</span>
-          </article>
-          <article class="member" data-reveal style="--i:3">
-            <img src="images/umar-pic.jpeg" alt="Umar" width="104" height="104" loading="lazy">
-            <h3>Umar</h3>
-            <span class="member__role">Content Specialist</span>
-          </article>
-          <article class="member" data-reveal style="--i:4">
-            <img src="images/david-pic.jpeg" alt="David" width="104" height="104" loading="lazy">
-            <h3>David</h3>
-            <span class="member__role">QA / UX Specialist</span>
-          </article>
-        </div>
+      <div class="faq-list" id="faqList">
+        <details class="faq-item" data-reveal open>
+          <summary>What is FoundIt? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>FoundIt is a lost-and-found board for the BYU-Idaho campus. People who lose something post it, people who find something post it, and anyone can search the board to bring the two together.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Is this the official BYU-Idaho lost and found? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>No. FoundIt is a student class project, not an official BYU-Idaho service. If you lost something valuable, also ask at the front desk of the building where you lost it.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How do I report something I lost? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Go to <a href="report.html?type=lost">Report → I lost something</a> and fill out the short form. Say what it is, the building where you last had it, and the date. A photo link helps a lot.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>I found something. What should I do? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Thank you! Open <a href="report.html?type=found">Report → I found something</a>, describe the item, where you found it and where it is now. Keep one small detail to yourself so you can check that the person who claims it is the real owner.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How do I prove an item is mine? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Describe something that isn’t in the public report: your lock screen, what’s inside the bag, a scratch, a sticker or a name. The full steps are on <a href="claim.html">How to claim</a>.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Who can see my report? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Anyone who visits FoundIt can see the item details: what it is, the place, the date and the photo. Never put card numbers, ID numbers, passwords or other private information in the description.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Why isn’t my item on the campus map? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>The map places a report when its location names a campus building we know, like “STC”, “Manwaring Center” or “I-Center”. Reports with other places still show up as cards on <a href="items.html">Browse</a>.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How fast does my report show up? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Reports come from a Google Sheet that updates every few minutes. Give it a moment, then refresh the Browse page.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What are the “Sample” items? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Examples that show how the board looks when it’s busy. They always carry a “Sample” badge, and you can switch them off on the Browse page.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>I got my item back! Now what? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>Awesome! Tell the FoundIt team so we can mark the report as returned. Returned items show up with their own badge, which helps everyone trust the board.</p></div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Who made FoundIt? <span class="plus"><i data-icon="plus"></i></span></summary>
+          <div class="answer"><p>A team of five BYU-Idaho students built it as a class project, working in Scrum sprints. Meet us on the <a href="about.html">About</a> page.</p></div>
+        </details>
       </div>
-    </section>
-
-    <section class="section section--tight" aria-labelledby="process-title">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="kicker">How we built it</span>
-            <h2 id="process-title">Agile, one sprint at a time</h2>
-          </div>
-          <p>We planned in Scrum sprints, tracked every task on a shared board, and shipped small improvements often.</p>
-        </div>
-        <div class="process">
-          <article class="process__item" data-reveal style="--i:0">
-            <span class="big" aria-hidden="true">🗂️</span>
-            <h3>Sprint planning</h3>
-            <p>User stories and tasks lived on our Lucid team board, so everyone knew what was next.</p>
-          </article>
-          <article class="process__item" data-reveal style="--i:1">
-            <span class="big" aria-hidden="true">📝</span>
-            <h3>Google Forms &amp; Sheets</h3>
-            <p>Reports come in through Google Forms and go straight into a sheet that powers the board.</p>
-          </article>
-          <article class="process__item" data-reveal style="--i:2">
-            <span class="big" aria-hidden="true">🌐</span>
-            <h3>GitHub Pages</h3>
-            <p>The site is plain HTML, CSS and JavaScript, reviewed through pull requests and published on GitHub Pages.</p>
-          </article>
-          <article class="process__item" data-reveal style="--i:3">
-            <span class="big" aria-hidden="true">🗺️</span>
-            <h3>Campus map</h3>
-            <p>Building locations come from OpenStreetMap, so each report can land on the right spot.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--tight">
-      <div class="container">
-        <div class="cta-band on-dark" data-reveal>
-          <span class="cta-band__art" aria-hidden="true">💙</span>
-          <div>
-            <span class="kicker">Every item has a way home</span>
-            <h2>Help us prove it.</h2>
-            <p>Report what you lost, post what you found, and share FoundIt with your roommates.</p>
-          </div>
-          <div class="cta-band__actions">
-            <a class="btn btn--light btn--lg" href="report.html">Report an item</a>
-            <a class="btn btn--on-dark btn--lg" href="items.html">Browse the board</a>
-          </div>
-        </div>
-      </div>
-    </section>
+      <p class="faq-empty" id="faqEmpty" hidden>No questions match that. Try another word, or <a href="about.html">ask the team</a>.</p>
+    </div>
   </main>
 
   <footer class="site-footer">
