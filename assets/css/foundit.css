@@ -1704,7 +1704,7 @@ select.input {
   animation: bob 3s ease-in-out infinite alternate;
 }
 
-.empty-state h3 {
+.empty-state h2 {
   font-size: 26px;
   color: var(--text);
 }
@@ -2160,7 +2160,7 @@ select.input {
   transform: scale(1.06);
 }
 
-.t-step h3 {
+.t-step h2 {
   margin-bottom: 8px;
   font-size: 24px;
 }
